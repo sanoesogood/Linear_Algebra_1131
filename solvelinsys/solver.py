@@ -17,11 +17,11 @@ class LinSysSol:
         sol_type_str = f"{self.type.value} solution."
         match self.type:
             case SolType.UNIQUE:
-                return self._tostring() + ', ' + sol_type_str + f" for b = {sol.vec}"
+                return self._tostring() + ', ' + sol_type_str
             case SolType.MANY:
-                return self._tostring() + ', ' + sol_type_str + f" for b = {sol.vec}"
+                return self._tostring() + ', ' + sol_type_str
             case SolType.NO:
-                return sol_type_str + f" for b = {sol.vec}"
+                return sol_type_str
 
     def tostring(self) -> str:
         return self._tostring()
@@ -136,15 +136,18 @@ if __name__ == "__main__":
         [1, -1, -1, -2, 3]
     ])
 
+    augsize1 = 2
+    augsize2 = 1
+
     sol1 = solver(mat1, augsize=2)
     sol2 = solver(mat2)
 
     print(f"Solutions of matrix (augsize=2) \n{mat1} is:")
     for i, sol in enumerate(sol1):
-        print(f"{i+1}. {sol}")
+        print(f"{i+1}. {sol}, for b = {mat1[:, len(mat1) - augsize2 + 1 + i]}")
 
     print("==================================")
 
     print(f"Solutions of matrix (augsize=1) \n{mat2} is:")
     for i, sol in enumerate(sol2):
-        print(f"{i+1}. {sol}")
+        print(f"{i+1}. {sol}, for b = {mat2[:, len(mat2) - augsize2 + 1 + i]}")
